@@ -4,6 +4,7 @@ const filmesGhibli = require("./model/ghiblifilmes.json"); //acesso o jason dos 
 const app = express(); //executa o express
 
 app.use(express.json()) //constrói o bodyparse = traduz o código para json
+                        //bodyparse: é um módulo capaz de converter o body da requisição para vários formatos
 
 // porta
 app.listen(8080, () => {
@@ -38,7 +39,7 @@ app.get("/filmes/:id", (request, response) => {
 
 // rota por titulo
 app.get("/filmes/titulo", (request, response) => {
-    let tituloRequest = resuqest.query.title.toLocaleLowerCase()
+    let tituloRequest = request.query.title.toLocaleLowerCase()
     console.log(tituloRequest)
     let filmeEncontrado = filmesGhibli.filter(
         filme => filme.title.toLocaleLowerCase().includes(tituloRequest))
@@ -46,7 +47,7 @@ app.get("/filmes/titulo", (request, response) => {
 })
 
 // rota para POST
-app.post("/filmes", (request, respose) => {
+app.post("/filmes", (request, response) => {
     let titleRequest = request.body.title
     let original_title_romanised = request.body.original_title_romanised
     let description = request.body.description
